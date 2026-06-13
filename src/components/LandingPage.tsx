@@ -48,19 +48,19 @@ export default function LandingPage({ onOpenCrm }: LandingPageProps) {
   };
 
   return (
-    <div className="relative min-h-screen text-slate-100 bg-slate-950 font-sans selection:bg-purple-900 selection:text-amber-300">
+    <div className="relative min-h-screen text-slate-100 bg-slate-950 font-sans selection:bg-purple-900 selection:text-amber-300 overflow-x-hidden">
       {/* 1. Global Space Ambient Background */}
       <CosmicBackground />
 
       {/* 2. Stunning Fixed Header Block */}
       <header className="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-xl border-b border-white/[0.04]">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between gap-2">
           {/* Brand Logo */}
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => scrollToSection("hero")}>
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-600 to-amber-500 flex items-center justify-center p-0.5 shadow-[0_0_15px_rgba(147,51,234,0.3)]">
-              <span className="text-sm font-bold text-slate-950">KD</span>
+          <div className="flex items-center gap-1.5 sm:gap-2 cursor-pointer min-w-0 flex-shrink" onClick={() => scrollToSection("hero")}>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-purple-600 to-amber-500 flex items-center justify-center p-0.5 shadow-[0_0_15px_rgba(147,51,234,0.3)] flex-shrink-0">
+              <span className="text-xs sm:text-sm font-bold text-slate-950">KD</span>
             </div>
-            <span className="font-serif tracking-widest text-base md:text-lg font-bold bg-gradient-to-r from-amber-400 to-amber-250 bg-clip-text text-transparent uppercase">
+            <span className="font-serif tracking-wider sm:tracking-widest text-sm md:text-lg font-bold bg-gradient-to-r from-amber-400 to-amber-250 bg-clip-text text-transparent uppercase truncate">
               Astrology CRM
             </span>
           </div>
@@ -75,19 +75,19 @@ export default function LandingPage({ onOpenCrm }: LandingPageProps) {
             <button onClick={() => scrollToSection("footer-section")} className="hover:text-amber-400 transition-colors cursor-pointer">Contact Us</button>
           </nav>
 
-          {/* Login Click Triggers Transition to Astrologer CRM Dashboard */}
+          {/* Login Button — compact on mobile */}
           <button
             onClick={() => navigate("/login")}
-            className="px-6 py-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-950 text-xs font-bold transition-all shadow-[0_0_15px_rgba(255,255,255,0.15)] flex items-center gap-1.5 cursor-pointer"
+            className="px-3 sm:px-6 py-1.5 sm:py-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-950 text-[11px] sm:text-xs font-bold transition-all shadow-[0_0_15px_rgba(255,255,255,0.15)] flex items-center gap-1 sm:gap-1.5 cursor-pointer flex-shrink-0"
           >
-            <span>Login/ Signup</span>
+            <span className="hidden xs:inline sm:inline">Login/</span><span>Signup</span>
             <ArrowRight className="w-3 h-3" />
           </button>
         </div>
       </header>
 
       {/* 3. Hero Visual Section */}
-      <section className="relative z-10 max-w-6xl mx-auto px-4 pt-12 md:pt-16 pb-12 text-center" id="hero">
+      <section className="relative z-10 w-full max-w-6xl mx-auto px-4 pt-8 sm:pt-12 md:pt-16 pb-8 sm:pb-12 text-center" id="hero">
         {/* Subtle decorative badges */}
         <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-6 shadow-md">
           <Sparkles className="w-3.5 h-3.5 text-amber-400" />
@@ -115,7 +115,7 @@ export default function LandingPage({ onOpenCrm }: LandingPageProps) {
       </section>
 
       {/* 4. Planet Interactive Details */}
-      <section className="relative z-10 max-w-5xl mx-auto px-4 pb-16 select-none">
+      <section className="relative z-10 w-full max-w-5xl mx-auto px-3 sm:px-4 pb-16 select-none">
         <div className="bg-slate-900/40 backdrop-blur-md border border-slate-850 rounded-3xl p-5 sm:p-6 md:p-10 shadow-2xl">
           <div className="inline-block px-3 py-1 bg-slate-950/80 border border-slate-800 text-[9px] uppercase tracking-wider font-bold text-purple-400 rounded-full mb-4">
             🪐 Planet Details

@@ -15,7 +15,7 @@ export default function PlanetArc({ selectedPlanetId, onSelectPlanet }: PlanetAr
   const scrollRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="w-full py-6 md:py-14 relative select-none overflow-hidden">
+    <div className="w-full py-6 md:py-14 relative overflow-x-hidden md:overflow-x-visible select-none">
       {/* Desktop Arc decorative line */}
       <svg
         className="absolute top-[20%] left-0 w-full h-[150px] pointer-events-none hidden md:block"
