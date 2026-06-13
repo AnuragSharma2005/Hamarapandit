@@ -111,29 +111,8 @@ Represents financial statements and invoices.
 
 The geocoding, coordinates offset lookup, and astronomical mapping logic are fully managed on the backend to avoid browser CORS errors and key exposure:
 
-```mermaid
-sequenceDiagram
-    participant C as React Client
-    participant B as Express Server
-    participant G as Nominatim API
-    participant T as TimeAPI
-    participant V as VedicAstroAPI
+![Celestial Calculation Flow](assets/calculation_flow.png)
 
-    C->>B: "POST /api/astrology/chart { name, dob, tob, pob }"
-    B->>G: "Fetch coordinates (lat, lon) for place of birth"
-    G-->>B: "Return lat/lon"
-    B->>T: "Fetch IANA Timezone Name"
-    T-->>B: "Return timezone (e.g. Asia/Kolkata)"
-    
-    alt VedicAstroAPI Key is Available & Call Quota Intact
-        B->>V: "Fetch Planet details & Vimshottari Mahadasha"
-        V-->>B: "Return detailed planetary longitudes"
-        B-->>C: "JSON response with provider: 'vedicastroapi'"
-    else API Key Depleted (402) / Offline / Connection Timeout
-        B->>B: "Execute Local Keplerian Orbital Calculation Engine"
-        B-->>C: "JSON response with provider: 'offline'"
-    end
-```
 
 ### Local Astronomical Calculation Engine
 If VedicAstroAPI is unavailable, the local astronomical engine executes server-side:
