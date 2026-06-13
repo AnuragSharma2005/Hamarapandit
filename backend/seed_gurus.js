@@ -5,7 +5,7 @@ import User from './models/User.js';
 
 dotenv.config();
 
-const connUri = process.env.MONGO_URI || 'mongodb+srv://adityasharma5672_db_user:aditya_sharma@cctv.ua9ppeq.mongodb.net/astrology?retryWrites=true&w=majority&appName=cctv';
+const connUri = process.env.MONGO_URI || '';
 
 const gurus = [
   {
