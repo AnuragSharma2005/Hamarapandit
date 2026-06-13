@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Calendar, CheckCircle2, XCircle, Sparkles } from "lucide-react";
 import { getStoredData } from "../../data/mockCrmData";
 import { Client, Appointment } from "../../types";
+import { API_BASE } from "../../lib/apiBase";
 
 export default function Appointments() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -9,7 +10,7 @@ export default function Appointments() {
   const [astrologers, setAstrologers] = useState<{ _id: string; name: string; email: string }[]>([]);
 
   useEffect(() => {
-    fetch("/api/auth/astrologers")
+    fetch(`${API_BASE}/api/auth/astrologers`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {

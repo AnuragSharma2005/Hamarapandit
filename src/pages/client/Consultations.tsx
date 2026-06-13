@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Sparkles, FileClock } from "lucide-react";
 import { getStoredData } from "../../data/mockCrmData";
 import { Client, Consultation } from "../../types";
+import { API_BASE } from "../../lib/apiBase";
 
 export default function Consultations() {
   const [consultations, setConsultations] = useState<Consultation[]>([]);
   const [astrologers, setAstrologers] = useState<{ _id: string; name: string; email: string }[]>([]);
 
   useEffect(() => {
-    fetch("/api/auth/astrologers")
+    fetch(`${API_BASE}/api/auth/astrologers`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {

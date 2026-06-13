@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { getStoredData, setStoredData, initialAvailability } from "../../data/mockCrmData";
 import { Client, Appointment, PaymentRecord, Availability } from "../../types";
+import { API_BASE } from "../../lib/apiBase";
 
 interface Pandit {
   _id: string;
@@ -157,7 +158,7 @@ export default function BookAppointment() {
 
   // Fetch astrologers from backend
   useEffect(() => {
-    fetch("/api/auth/astrologers")
+    fetch(`${API_BASE}/api/auth/astrologers`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {

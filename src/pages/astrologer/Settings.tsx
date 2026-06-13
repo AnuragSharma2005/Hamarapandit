@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Check, ShieldCheck, User } from "lucide-react";
 import { getStoredData, setStoredData } from "../../data/mockCrmData";
+import { API_BASE } from "../../lib/apiBase";
 
 export default function Settings() {
   const [profile, setProfile] = useState({
@@ -42,7 +43,7 @@ export default function Settings() {
     setProfile(stored);
 
     // Fetch fresh profile from backend database
-    fetch("/api/auth/me", {
+    fetch(`${API_BASE}/api/auth/me`, {
       headers: getAuthHeaders(),
     })
       .then((res) => {
@@ -67,7 +68,7 @@ export default function Settings() {
     setStoredData("astrologer_profile", profile);
 
     try {
-      const res = await fetch("/api/auth/profile", {
+      const res = await fetch(`${API_BASE}/api/auth/profile`, {
         method: "PUT",
         headers: getAuthHeaders(),
         body: JSON.stringify(profile),
@@ -103,7 +104,7 @@ export default function Settings() {
     }
 
     try {
-      const res = await fetch("/api/auth/profile", {
+      const res = await fetch(`${API_BASE}/api/auth/profile`, {
         method: "PUT",
         headers: getAuthHeaders(),
         body: JSON.stringify({ password: passwordData.newPassword }),

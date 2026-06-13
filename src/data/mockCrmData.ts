@@ -1,5 +1,6 @@
 import { Client, Appointment, Consultation, FollowUp, PaymentRecord, DailyHoroscopeReading, Availability } from "../types";
 import { INITIAL_CLIENTS, INITIAL_APPOINTMENTS } from "./astrologyData";
+import { API_BASE } from "../lib/apiBase";
 
 export const initialAvailability: Availability[] = [
   { day: "Monday", enabled: true, start: "10:00", end: "17:00" },
@@ -181,7 +182,7 @@ export const setStoredData = <T>(key: string, value: T): void => {
   localStorage.setItem(`kaal_darshan_${key}`, JSON.stringify(value));
 
   // Background sync request to MongoDB Express backend
-  fetch(`/api/sync/${key}`, {
+  fetch(`${API_BASE}/api/sync/${key}`, {
     method: "POST",
     headers: getAuthHeaders(),
     body: JSON.stringify({ data: value }),
@@ -193,7 +194,7 @@ export const setStoredData = <T>(key: string, value: T): void => {
 export const initializeDB = async (): Promise<void> => {
   try {
     // Attempt to pull sync state from MongoDB Express backend
-    const res = await fetch("/api/sync", {
+    const res = await fetch(`${API_BASE}/api/sync`, {
       headers: getAuthHeaders(),
     });
     if (res.ok) {
@@ -221,7 +222,7 @@ export const initializeDB = async (): Promise<void> => {
           data.clients.push(fallbackProfile);
 
           // Sync it to MongoDB immediately
-          fetch("/api/sync/clients", {
+          fetch(`${API_BASE}/api/sync/clients`, {
             method: "POST",
             headers: getAuthHeaders(),
             body: JSON.stringify({ data: data.clients }),
@@ -252,7 +253,7 @@ export const initializeDB = async (): Promise<void> => {
         horoscope: getStoredData("horoscope", initialHoroscopes),
       };
 
-      await fetch("/api/sync/bulk", {
+      await fetch(`${API_BASE}/api/sync/bulk`, {
         method: "POST",
         headers: getAuthHeaders(),
         body: JSON.stringify(payload),

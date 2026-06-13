@@ -30,15 +30,31 @@ connectDB();
 const app = express();
 
 // Middlewares
-app.use(cors());
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5173',
+  'https://hamarapandit.onrender.com',
+  process.env.FRONTEND_URL,        // optional: set in Render dashboard
+].filter(Boolean);
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow requests with no origin (mobile apps, curl, Render health checks)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    callback(new Error(`CORS: origin ${origin} not allowed`));
+  },
+  credentials: true,
+}));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
 
 // Health Check API
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'healthy',
-    message: 'Kaal Darshan CRM Backend API is active',
+    message: 'Astrology CRM Backend API is active',
     timestamp: new Date().toISOString()
   });
 });

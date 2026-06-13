@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import AuthLayout from "../components/AuthLayout";
 import { getStoredData, setStoredData } from "../data/mockCrmData";
 import { Client } from "../types";
+import { API_BASE } from "../lib/apiBase";
 
 export default function Register() {
   const [role, setRole] = useState<"client" | "astrologer">("client");
@@ -24,7 +25,7 @@ export default function Register() {
 
   // Load astrologers on mount
   useEffect(() => {
-    fetch("/api/auth/astrologers")
+    fetch(`${API_BASE}/api/auth/astrologers`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {
@@ -78,7 +79,7 @@ export default function Register() {
 
     try {
       // 1. Register user on backend MongoDB auth
-      const authRes = await fetch("/api/auth/register", {
+      const authRes = await fetch(`${API_BASE}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

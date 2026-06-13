@@ -2,6 +2,7 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
+import { API_BASE } from './apiBase';
 
 export type GeocodeResult = {
   displayName: string;
@@ -40,7 +41,7 @@ export async function fetchBirthChart(input: {
   tob: string;
   pob: string;
 }): Promise<BirthChartResult> {
-  const response = await fetch("/api/astrology/chart", {
+  const response = await fetch(`${API_BASE}/api/astrology/chart`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

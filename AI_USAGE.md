@@ -10,19 +10,19 @@ AI coding assistants were actively used across the lifecycle of the application 
 
 ### A. Backend Route & Logic Migration
 - **Files Created**:
-  - [astrologyRoutes.js](file:///c:/Users/adity/Downloads/kaal-darshan/backend/routes/astrologyRoutes.js): Defines POST endpoints for birth chart calculations.
-  - [astrologyController.js](file:///c:/Users/adity/Downloads/kaal-darshan/backend/controllers/astrologyController.js): Implemented geocoding, timezone lookup, VedicAstroAPI queries, and fallback local calculations.
+  - [astrologyRoutes.js](file:///c:/Users/adity/Downloads/AstrologyCRM/backend/routes/astrologyRoutes.js): Defines POST endpoints for birth chart calculations.
+  - [astrologyController.js](file:///c:/Users/adity/Downloads/AstrologyCRM/backend/controllers/astrologyController.js): Implemented geocoding, timezone lookup, VedicAstroAPI queries, and fallback local calculations.
 - **Files Modified**:
-  - [index.js](file:///c:/Users/adity/Downloads/kaal-darshan/backend/index.js): Imported and mounted the astrology routes under `/api/astrology`.
+  - [index.js](file:///c:/Users/adity/Downloads/AstrologyCRM/backend/index.js): Imported and mounted the astrology routes under `/api/astrology`.
 
 ### B. Frontend Restructuring
 - **Files Modified**:
-  - [astrologyApi.ts](file:///c:/Users/adity/Downloads/kaal-darshan/src/lib/astrologyApi.ts): Removed all client-side Nominatim and TimeAPI network calls. Rewrote the core `fetchBirthChart` adapter to send requests directly to `/api/astrology/chart` on the backend, preserving strict TypeScript types.
+  - [astrologyApi.ts](file:///c:/Users/adity/Downloads/AstrologyCRM/src/lib/astrologyApi.ts): Removed all client-side Nominatim and TimeAPI network calls. Rewrote the core `fetchBirthChart` adapter to send requests directly to `/api/astrology/chart` on the backend, preserving strict TypeScript types.
 
 ### C. Database Synchronization & Ledger Reconciliation
 - **Files Modified**:
-  - [syncController.js](file:///c:/Users/adity/Downloads/kaal-darshan/backend/controllers/syncController.js): Implemented an immutable-fields sanitizer (`cleanUpdateData`) to strip system variables (`_id`, `__v`) before database bulk upserts.
-  - [Payments.tsx](file:///c:/Users/adity/Downloads/kaal-darshan/src/pages/client/Payments.tsx): Configured automatic reconciliation between invoice status updates and appointment entries in MongoDB.
+  - [syncController.js](file:///c:/Users/adity/Downloads/AstrologyCRM/backend/controllers/syncController.js): Implemented an immutable-fields sanitizer (`cleanUpdateData`) to strip system variables (`_id`, `__v`) before database bulk upserts.
+  - [Payments.tsx](file:///c:/Users/adity/Downloads/AstrologyCRM/src/pages/client/Payments.tsx): Configured automatic reconciliation between invoice status updates and appointment entries in MongoDB.
 
 ---
 

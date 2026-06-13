@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Clock, Check, Sparkles } from "lucide-react";
 import { getStoredData, setStoredData, initialAvailability } from "../../data/mockCrmData";
 import { Availability as AvailabilityType } from "../../types";
+import { API_BASE } from "../../lib/apiBase";
 
 export default function Availability() {
   const [availability, setAvailability] = useState<AvailabilityType[]>([]);
@@ -30,7 +31,7 @@ export default function Availability() {
     setAvailability(resolveAvailability(stored || []));
 
     // 2. Fetch fresh data from backend
-    fetch("/api/sync", {
+    fetch(`${API_BASE}/api/sync`, {
       headers: getAuthHeaders(),
     })
       .then((res) => {
