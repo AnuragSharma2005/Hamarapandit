@@ -142,7 +142,7 @@ export default function Register() {
   return (
     <AuthLayout
       title={`${role === "astrologer" ? "Astrologer" : "Client"} Registration`}
-      subtitle="Join Kaal Darshan cosmic console"
+      subtitle="Join Astrology CRM cosmic console"
     >
       {/* Role Tabs */}
       <div className="flex bg-slate-950 border border-slate-850 p-1 rounded-xl mb-4">
@@ -150,8 +150,8 @@ export default function Register() {
           type="button"
           onClick={() => setRole("client")}
           className={`flex-1 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all cursor-pointer ${role === "client"
-              ? "bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 shadow-md"
-              : "text-slate-400 hover:text-slate-200"
+            ? "bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 shadow-md"
+            : "text-slate-400 hover:text-slate-200"
             }`}
         >
           Client Portal
@@ -160,8 +160,8 @@ export default function Register() {
           type="button"
           onClick={() => setRole("astrologer")}
           className={`flex-1 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all cursor-pointer ${role === "astrologer"
-              ? "bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 shadow-md"
-              : "text-slate-400 hover:text-slate-200"
+            ? "bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 shadow-md"
+            : "text-slate-400 hover:text-slate-200"
             }`}
         >
           Astrologer Console

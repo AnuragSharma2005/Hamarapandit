@@ -357,9 +357,6 @@ export const getBirthChart = async (req, res, next) => {
               console.warn("Mahadasha fetch failed:", dashaErr.message);
             }
 
-            // Pre-compute local derivations (used as fallback for dasha + interpretation)
-            const localDerivations = computeAstrologyLocally(name, dob, tob, pob, loc);
-
             // Use offline calculation as fallback if API didn't provide unique dasha
             if (!dashaFromApi || dashaStr === "Jupiter / Venus") {
               const offlineDasha = localDerivations.dasha;
@@ -367,6 +364,8 @@ export const getBirthChart = async (req, res, next) => {
                 dashaStr = offlineDasha;
               }
             }
+
+            const localDerivations = computeAstrologyLocally(name, dob, tob, pob, loc);
 
             return res.json({
               provider: "vedicastroapi",

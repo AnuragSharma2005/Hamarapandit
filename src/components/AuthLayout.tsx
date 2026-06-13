@@ -20,10 +20,10 @@ export default function AuthLayout({ children, title, subtitle }: AuthLayoutProp
 
       {/* Auth Card container */}
       <div className="w-full max-w-4xl bg-slate-900/40 backdrop-blur-xl border border-slate-850/70 rounded-3xl overflow-hidden shadow-2xl relative z-10 flex flex-col md:flex-row min-h-[580px]">
-        
+
         {/* Left Side: Illustrative column */}
         <div className="md:w-1/2 bg-gradient-to-br from-slate-950 via-slate-900 to-purple-950/60 p-8 md:p-12 flex flex-col justify-between border-b md:border-b-0 md:border-r border-slate-850/60 relative overflow-hidden">
-          
+
           {/* Planetary rings decors */}
           <div className="absolute -top-10 -right-10 w-44 h-44 rounded-full border border-white/[0.04] pointer-events-none" />
           <div className="absolute -top-10 -right-10 w-64 h-64 rounded-full border border-white/[0.02] pointer-events-none" />
@@ -36,7 +36,7 @@ export default function AuthLayout({ children, title, subtitle }: AuthLayoutProp
               <Compass className="w-4 h-4 text-slate-950 font-bold" />
             </div>
             <span className="font-serif tracking-widest text-base font-bold bg-gradient-to-r from-amber-400 via-amber-250 to-orange-400 bg-clip-text text-transparent uppercase">
-              Kaal Darshan
+              Astrology CRM
             </span>
           </Link>
 
@@ -52,7 +52,7 @@ export default function AuthLayout({ children, title, subtitle }: AuthLayoutProp
           </div>
 
           <div className="text-[10px] text-slate-500 font-mono tracking-widest uppercase z-10">
-            © 2026 Kaal Darshan • CRM PORTAL
+            © 2026 Astrology CRM • CRM PORTAL
           </div>
         </div>
 

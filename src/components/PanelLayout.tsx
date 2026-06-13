@@ -101,7 +101,7 @@ export default function PanelLayout({ children, role }: PanelLayoutProps) {
           <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-purple-600 to-amber-500 flex items-center justify-center p-0.5">
             <Compass className="w-3.5 h-3.5 text-slate-950 font-bold animate-spin-slow" />
           </div>
-          <span className="font-serif tracking-widest text-xs font-bold text-white uppercase">Kaal Darshan</span>
+          <span className="font-serif tracking-widest text-xs font-bold text-white uppercase">Astrology CRM</span>
         </div>
         <button
           onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
@@ -126,7 +126,7 @@ export default function PanelLayout({ children, role }: PanelLayoutProps) {
               </div>
               <div>
                 <h1 className="text-xs font-bold tracking-widest font-serif text-white uppercase flex items-center gap-1">
-                  <span className="bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent">Kaal Darshan</span>
+                  <span className="bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent">Astrology CRM</span>
                 </h1>
                 <p className="text-[9px] text-slate-400 font-mono tracking-wider">{currentRoleName}</p>
               </div>
