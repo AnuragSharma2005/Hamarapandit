@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+/* Global cursor pointer for all interactive elements */
+button,
+a,
+select,
+[role="button"],
+[role="tab"],
+[role="option"],
+[role="menuitem"],
+[role="checkbox"],
+[role="radio"],
+[role="switch"],
+[type="button"],
+[type="submit"],
+[type="reset"],
+[type="checkbox"],
+[type="radio"],
+label[for],
+.cursor-pointer,
+summary {
+  cursor: pointer;
+}

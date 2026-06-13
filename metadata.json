@@ -1,0 +1,6 @@
+{
+  "name": "Kaal Darshan",
+  "description": "An exquisite cosmic landing page and comprehensive Astrologer CRM client portal with birth chart details, client tracking, and appointment management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
