@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react";
-import { Planet } from "../types";
+import React, { useRef } from "react";
 import { PLANETS_DATA } from "../data/astrologyData";
 
 interface PlanetArcProps {
@@ -13,12 +12,16 @@ interface PlanetArcProps {
 }
 
 export default function PlanetArc({ selectedPlanetId, onSelectPlanet }: PlanetArcProps) {
-  // Let's lay the 9 planets along a nice subtle arc curve on desktop, or simple scrollable line on mobile.
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div className="w-full py-8 md:py-16 relative overflow-visible select-none">
-      {/* Background Arc Line */}
-      <div className="absolute top-[50%] left-5 right-5 h-[1px] bg-gradient-to-r from-transparent via-blue-500/20 to-transparent hidden md:block" />
-      <svg className="absolute top-[20%] left-0 w-full h-[150px] pointer-events-none hidden md:block" viewBox="0 0 1200 150" fill="none">
+    <div className="w-full py-6 md:py-14 relative select-none overflow-hidden">
+      {/* Desktop Arc decorative line */}
+      <svg
+        className="absolute top-[20%] left-0 w-full h-[150px] pointer-events-none hidden md:block"
+        viewBox="0 0 1200 150"
+        fill="none"
+      >
         <path
           d="M 50 150 Q 600 -10 1150 150"
           stroke="url(#arc-gradient)"
@@ -37,66 +40,85 @@ export default function PlanetArc({ selectedPlanetId, onSelectPlanet }: PlanetAr
         </defs>
       </svg>
 
-      {/* Grid of Planets */}
-      <div className="relative z-10 flex flex-nowrap md:flex-wrap items-center justify-start md:justify-around gap-6 md:gap-4 overflow-x-auto md:overflow-x-visible pb-6 md:pb-0 px-4 md:px-0 scrollbar-none snap-x h-[200px] md:h-auto">
+      {/* Planets row — horizontal scroll on mobile, arc on desktop */}
+      <div
+        ref={scrollRef}
+        className="
+          relative z-10
+          flex flex-nowrap items-end
+          gap-5 sm:gap-6 md:gap-4
+          overflow-x-auto md:overflow-x-visible
+          md:flex-wrap md:justify-around md:items-center
+          pb-4 md:pb-0
+          px-6 md:px-0
+          snap-x snap-mandatory md:snap-none
+          scrollbar-none
+        "
+        style={{ WebkitOverflowScrolling: "touch" }}
+      >
         {PLANETS_DATA.map((planet, index) => {
           const isSelected = selectedPlanetId === planet.id;
-          
-          // Calculate desktop vertical offsets for arched placement
-          // Using a parabolic arc math: y = a * (x - h)^2 + k
-          // Normalized index centered around 4 (the middle item is Sun)
+
+          // Arc effect — only meaningful on desktop
           const mid = 4;
           const distFromMid = index - mid;
-          const verticalOffset = Math.pow(distFromMid, 2) * 5; // offset down at edges, up in center
+          const desktopVerticalOffset = Math.pow(distFromMid, 2) * 5;
 
           return (
             <div
               key={planet.id}
-              className="flex-shrink-0 snap-center flex flex-col items-center group cursor-pointer transition-all duration-300 transform"
+              className="flex-shrink-0 snap-center flex flex-col items-center group cursor-pointer transition-all duration-300 md:transition-transform"
+              // Arc offset only on desktop via a CSS custom property trick — use inline style
               style={{
-                transform: `translateY(${verticalOffset}px)`,
+                marginTop: `clamp(0px, calc(${desktopVerticalOffset}px * var(--arc-factor, 0)), ${desktopVerticalOffset}px)`,
               }}
               onClick={() => onSelectPlanet(planet.id)}
             >
-              {/* Planet sphere with real image and glow */}
-              <div className="relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center">
-                {/* Outer Glow */}
+              {/* Planet sphere */}
+              <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center">
+                {/* Glow ring */}
                 <div
-                  className={`absolute inset-[-4px] rounded-full blur-md opacity-30 transition-all duration-500 group-hover:opacity-75 ${
-                    isSelected ? "opacity-90 scale-110" : ""
+                  className={`absolute inset-[-5px] rounded-full blur-lg transition-all duration-500 ${
+                    isSelected
+                      ? "opacity-80 scale-110"
+                      : "opacity-20 group-hover:opacity-55"
                   }`}
-                  style={{
-                    backgroundColor: planet.glowColor,
-                  }}
+                  style={{ backgroundColor: planet.glowColor }}
                 />
-                
-                {/* Real Planet Image */}
+
+                {/* Planet image */}
                 <img
                   src={planet.image}
                   alt={planet.name}
-                  className={`w-12 h-12 md:w-16 md:h-16 rounded-full object-cover transition-all duration-300 relative z-10 ${
-                    isSelected ? "ring-2 ring-white/60 ring-offset-2 ring-offset-slate-950 scale-105" : "hover:scale-105"
+                  className={`w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full object-cover relative z-10 transition-all duration-300 ${
+                    isSelected
+                      ? "ring-2 ring-white/70 ring-offset-2 ring-offset-slate-950 scale-110"
+                      : "hover:scale-105"
                   }`}
-                  style={{
-                    filter: `drop-shadow(0 0 8px ${planet.glowColor})`,
-                  }}
+                  style={{ filter: `drop-shadow(0 0 10px ${planet.glowColor})` }}
                 />
 
-                {/* Celestial Crown indicator */}
+                {/* Selected dot */}
                 {isSelected && (
-                  <div className="absolute -top-1.5 w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.8)] z-20" />
+                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.9)] z-20" />
                 )}
               </div>
 
-              {/* Labels */}
-              <div className="text-center mt-3">
-                <span className="block text-xs font-semibold text-slate-100 group-hover:text-amber-400 transition-colors">
+              {/* Planet name + vedic name */}
+              <div className="text-center mt-3 space-y-0.5">
+                <span
+                  className={`block text-[11px] font-semibold leading-tight transition-colors ${
+                    isSelected
+                      ? "text-amber-400"
+                      : "text-slate-100 group-hover:text-amber-400"
+                  }`}
+                >
                   {planet.name}
                 </span>
-                <span className="block text-[10px] text-amber-500/90 font-medium">
+                <span className="block text-[9px] text-amber-500/80 font-medium">
                   ({planet.vedicName})
                 </span>
-                <span className="block text-[9px] text-slate-400 font-mono mt-0.5 tracking-tighter">
+                <span className="block text-[8px] text-slate-500 font-mono tracking-tight">
                   {planet.degree}
                 </span>
               </div>
@@ -104,6 +126,18 @@ export default function PlanetArc({ selectedPlanetId, onSelectPlanet }: PlanetAr
           );
         })}
       </div>
+
+      {/* Mobile swipe hint */}
+      <p className="text-center text-[9px] text-slate-600 font-mono mt-3 md:hidden tracking-widest">
+        ← swipe to explore all planets →
+      </p>
+
+      {/* CSS trick: set --arc-factor to 1 on md screens */}
+      <style>{`
+        @media (min-width: 768px) {
+          [style*="--arc-factor"] { --arc-factor: 1; }
+        }
+      `}</style>
     </div>
   );
 }

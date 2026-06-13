@@ -114,27 +114,28 @@ export default function LandingPage({ onOpenCrm }: LandingPageProps) {
         />
       </section>
 
-      {/* 4. Planet Interactive Details ("What Planet says") matching image */}
-      <section className="relative z-10 max-w-5xl mx-auto px-4 pb-20 select-none">
-        <div className="bg-slate-900/40 backdrop-blur-md border border-slate-850 rounded-3xl p-6 md:p-10 shadow-2xl">
-          <div className="inline-block px-3 py-1 bg-slate-950/80 border border-slate-800 text-[9px] uppercase tracking-wider font-bold text-purple-400 rounded-full mb-6">
+      {/* 4. Planet Interactive Details */}
+      <section className="relative z-10 max-w-5xl mx-auto px-4 pb-16 select-none">
+        <div className="bg-slate-900/40 backdrop-blur-md border border-slate-850 rounded-3xl p-5 sm:p-6 md:p-10 shadow-2xl">
+          <div className="inline-block px-3 py-1 bg-slate-950/80 border border-slate-800 text-[9px] uppercase tracking-wider font-bold text-purple-400 rounded-full mb-4">
             🪐 Planet Details
           </div>
 
-          <h3 className="text-lg md:text-xl font-semibold text-slate-100 tracking-tight mb-2">
+          <h3 className="text-base md:text-xl font-semibold text-slate-100 tracking-tight mb-5">
             What Planet says
           </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center mt-6">
-            
-            {/* Left side details text */}
-            <div className="md:col-span-5 space-y-5">
+          {/* Mobile: flex-col | Desktop: 3-col grid */}
+          <div className="flex flex-col md:grid md:grid-cols-12 gap-5 md:gap-8 md:items-center">
+
+            {/* Planet name + description + nav */}
+            <div className="md:col-span-5 space-y-4">
               <div>
-                <h4 className="text-2xl font-serif font-bold text-white flex items-center gap-2">
+                <h4 className="text-xl md:text-2xl font-serif font-bold text-white flex flex-wrap items-center gap-2">
                   <span>{selectedPlanet.name}</span>
-                  <span className="text-xs text-amber-500 font-sans font-medium">({selectedPlanet.vedicName})</span>
+                  <span className="text-xs text-amber-500 font-sans font-normal">({selectedPlanet.vedicName})</span>
                 </h4>
-                <p className="text-xs text-slate-400 font-mono mt-1">
+                <p className="text-[10px] text-slate-400 font-mono mt-1">
                   Active Coordinates: {selectedPlanet.degree}
                 </p>
               </div>
@@ -143,8 +144,7 @@ export default function LandingPage({ onOpenCrm }: LandingPageProps) {
                 {selectedPlanet.description}
               </p>
 
-              {/* Slider Toggles */}
-              <div className="flex items-center gap-3 pt-4">
+              <div className="flex items-center gap-3 pt-2">
                 <button
                   onClick={handlePrevPlanet}
                   className="p-2 bg-slate-950 rounded-full border border-slate-800 text-slate-400 hover:text-white hover:border-amber-400 transition-all cursor-pointer"
@@ -163,10 +163,9 @@ export default function LandingPage({ onOpenCrm }: LandingPageProps) {
               </div>
             </div>
 
-            {/* Center: Real planet image */}
-            <div className="md:col-span-3 flex justify-center py-6">
-              <div className="relative w-44 h-44 flex items-center justify-center">
-                {/* Spherical glow */}
+            {/* Planet image */}
+            <div className="md:col-span-3 flex justify-center py-4 md:py-6">
+              <div className="relative w-36 h-36 sm:w-40 sm:h-40 md:w-44 md:h-44 flex items-center justify-center">
                 <div
                   className="absolute inset-0 rounded-full blur-xl opacity-40 animate-pulse"
                   style={{ backgroundColor: selectedPlanet.glowColor, animationDuration: '4s' }}
@@ -174,22 +173,19 @@ export default function LandingPage({ onOpenCrm }: LandingPageProps) {
                 <img
                   src={selectedPlanet.image}
                   alt={selectedPlanet.name}
-                  className="w-36 h-36 rounded-full object-cover relative z-10"
-                  style={{
-                    filter: `drop-shadow(0 0 20px ${selectedPlanet.glowColor})`,
-                  }}
+                  className="w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-full object-cover relative z-10"
+                  style={{ filter: `drop-shadow(0 0 20px ${selectedPlanet.glowColor})` }}
                 />
               </div>
             </div>
 
-            {/* Right side Astrology sign alignments */}
-            <div className="md:col-span-4 space-y-6 text-xs border-t md:border-t-0 md:border-l border-slate-850 pt-6 md:pt-0 md:pl-8">
-              
+            {/* Signs + influence */}
+            <div className="md:col-span-4 space-y-5 text-xs border-t md:border-t-0 md:border-l border-slate-850 pt-5 md:pt-0 md:pl-8">
               <div className="space-y-3">
                 <h5 className="font-bold text-slate-200 tracking-wide uppercase font-mono text-[10px]">
                   {selectedPlanet.name} in Different Signs:
                 </h5>
-                <div className="space-y-2">
+                <div className="grid grid-cols-3 md:grid-cols-1 gap-3 md:gap-2">
                   <div>
                     <span className="font-semibold text-amber-500 block">Own Sign:</span>
                     <span className="text-slate-400">{selectedPlanet.influence.signs.own}</span>
@@ -209,22 +205,19 @@ export default function LandingPage({ onOpenCrm }: LandingPageProps) {
                 <h5 className="font-bold text-slate-200 tracking-wide uppercase font-mono text-[10px]">
                   {selectedPlanet.name} Key Influence:
                 </h5>
-                <div className="space-y-2">
-                  <div>
-                    <span className="font-semibold text-indigo-400 block">Key Houses:</span>
-                    <span className="text-slate-400">{selectedPlanet.influence.houses.join(", ")}</span>
-                  </div>
-                  <div>
-                    <span className="font-semibold text-purple-400 block">Influencing Traits:</span>
-                    <ul className="list-disc pl-4 space-y-0.5 text-slate-400 mt-1">
-                      {selectedPlanet.influence.traits.map((t, i) => (
-                        <li key={i}>{t}</li>
-                      ))}
-                    </ul>
-                  </div>
+                <div>
+                  <span className="font-semibold text-indigo-400 block">Key Houses:</span>
+                  <span className="text-slate-400">{selectedPlanet.influence.houses.join(", ")}</span>
+                </div>
+                <div>
+                  <span className="font-semibold text-purple-400 block">Influencing Traits:</span>
+                  <ul className="list-disc pl-4 space-y-0.5 text-slate-400 mt-1 columns-2 md:columns-1">
+                    {selectedPlanet.influence.traits.map((t, i) => (
+                      <li key={i}>{t}</li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-
             </div>
 
           </div>
